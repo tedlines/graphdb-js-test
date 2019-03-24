@@ -1,0 +1,12 @@
+{
+  "name": "node-web-sample",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "~1.14.2",
+    "ejs": "~2.4.1",
+    "express": "~4.13.1",
+    "express-session": "~1.13.0",
+    "gremlin": "^3.4.0",
+    "orientjs": "^3.0.4"
+  }
+}

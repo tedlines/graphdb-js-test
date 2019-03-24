@@ -1,0 +1,89 @@
+<html>
+  <head>
+    <% include ./header.ejs %>
+  </head>
+  <body>
+    <% include ./nav.ejs %>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Article ID</th>
+                <th>Written by Member</th>
+                <th>Title</th>
+                <th>Belong to Board</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < data.articles.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data.articles[i].id %></td>
+                <td><%= data.articles[i].member_name %></td>
+                <td><a href="/article/get?articleId=<%= data.articles[i].id %>" ><%= data.articles[i].title %></a></td>
+                <td><%= data.articles[i].board_name %></td>
+            </tr>       
+            <% } %>    
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <form role="form" name="fo" id="fo">
+            <div class="form-group col-lg-6">
+                <label for="articleId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Article ID</label>
+                <div class="notice-padding">
+                    <input type="text" name="articleId" id="articleId" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="memberId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Write Member ID (Edge)</label>
+                <div class="notice-padding">
+                    <select name="memberId" class="form-control">
+                        <% for(var i=0; i < data.members.length; i++) { %>
+                        <option value="<%= data.members[i].id %>"><%= data.members[i].name %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="title"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Title</label>
+                <div class="notice-padding"> 
+                    <input type="text" name="title" id="title" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="content"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Content</label>
+                <div class="notice-padding"> 
+                    <input type="text" name="content" id="content" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="boardId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Belong to Board ID (Edge)</label>
+                <div class="notice-padding">
+                    <select name="boardId" class="form-control">
+                        <% for(var i=0; i < data.boards.length; i++) { %>
+                        <option value="<%= data.boards[i].id %>"><%= data.boards[i].name %></option>
+                        <% } %>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-lg-12" id="btn_add_group">
+                <a href="#" onclick="add()" id="btn_add" class="btn btn-primary">Add</a>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+            function add() {
+                if(confirm("Add Article?")) {                            
+                    var fo = document.fo;
+                    fo.action = "/article/add";
+                    fo.method = "post";
+                    fo.submit();
+                }
+            };            
+    </script>
+  </body>
+</html>

@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <% include ./header.ejs %>
+  </head>
+  <body>
+    <% include ./nav.ejs %>
+    
+    <div class="col-md-6">
+        <form role="form" name="fo" id="fo">
+            <div class="form-group col-lg-6">
+                <label for="articleId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Article ID</label>
+                <div class="notice-padding">
+                    <input type="hidden" name="articleId" id="articleId" class="form-control" value="<%= data.articles[0].id %>">
+                    <%= data.articles[0].id %>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="memberId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Write Member ID (Edge)</label>
+                <div class="notice-padding">
+                    <%= data.articles[0].member_name %>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="title"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Title</label>
+                <div class="notice-padding"> 
+                    <%= data.articles[0].title %>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="content"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Content</label>
+                <div class="notice-padding"> 
+                    <%= data.articles[0].content %>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="boardId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Belong to Board ID (Edge)</label>
+                <div class="notice-padding">
+                    <%= data.articles[0].board_name %>
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                    <label for="memberId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Read Member ID (Edge)</label>
+                    <div class="notice-padding">
+                        <select name="memberId" class="form-control">
+                            <% for(var i=0; i < data.members.length; i++) { %>
+                            <option value="<%= data.members[i].id %>"><%= data.members[i].name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+            <div class="form-group col-lg-12" id="btn_add_group">
+                <a href="#" onclick="read()" id="btn_add" class="btn btn-primary">Read</a>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+            function read() {
+                if(confirm("Read Article?")) {                            
+                    var fo = document.fo;
+                    fo.action = "/article/read";
+                    fo.method = "post";
+                    fo.submit();
+                }
+            };            
+    </script>
+  </body>
+</html>

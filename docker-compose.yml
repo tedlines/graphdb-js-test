@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  graphdb-test:
+    image: graphdb-test
+    container_name: graphdb-test
+    command: bash -c "pm2 start app/app.js --watch && pm2 logs --raw"
+    environment: 
+      - NODE_ENV=local
+      - USE_DB=orientdb  # select DB : gremlin or orientdb
+    volumes:
+      # - /[Set Your Local dir]/graphdb-js-test/app:/usr/src/app/app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - gremlin
+      - orientdb
+       
+
+  gremlin:
+    image: tinkerpop/gremlin-server:latest
+    container_name: gremlin    
+    ports:
+      - "8182:8182"
+    volumes:
+      # - /[Set Your Local dir]/graphdb-js-test/gremlin-server.yaml:/conf/gremlin-server.yaml
+    
+
+  orientdb:
+    image: orientdb:latest
+    container_name: orientdb
+    environment:
+      - ORIENTDB_ROOT_PASSWORD= #[Set Passwd for OrientDB root]
+    ports:
+      - 2424:2424
+      - 2480:2480
+
+  

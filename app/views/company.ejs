@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <% include ./header.ejs %>
+  </head>
+  <body>
+    <% include ./nav.ejs %>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Company ID</th>
+                <th>Company Name</th>
+                <th>Allow to Boards</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < data.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data[i].id %></td>
+                <td><a href="/member/list?companyId=<%= data[i].id %>" ><%= data[i].name %></a></td>
+                <td><%= data[i].board_name %></td>
+            </tr>       
+            <% } %>    
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <form role="form" name="fo" id="fo">
+            <div class="form-group col-lg-6">
+                <label for="CompanyId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Company ID</label>
+                <div class="notice-padding">
+                    <input type="text" name="companyId" id="companyId" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="companyId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Company Name</label>
+                <div class="notice-padding"> 
+                    <input type="text" name="name" id="name" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-12" id="btn_add_group">
+                <a href="#" onclick="add()" id="btn_add" class="btn btn-primary">Add</a>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+            function add() {
+                if(confirm("Add Company?")) {
+                    var fo = document.fo;
+                    fo.action = "/Company/add";
+                    fo.method = "post";
+                    fo.submit();
+                }
+            };            
+    </script>
+  </body>
+</html>

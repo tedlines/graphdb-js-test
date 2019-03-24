@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <% include ./header.ejs %>
+  </head>
+  <body>
+    <% include ./nav.ejs %>
+    <div class="col-md-12">
+        <h2>Members of Company</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Member ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Work for Company</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < data.members.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data.members[i].id %></td>
+                <td><%= data.members[i].name %></td>
+                <td><%= data.members[i].age %></td>
+                <td><%= data.members[i].company_name %></td>
+            </tr>       
+            <% } %>    
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <h2>Articles read by Company`s Members (TRAVERSE)</h2>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Article ID</th>
+                <th>Read Member</th>
+                <th>Title</th>
+                <th>Belong to Board</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < data.articles.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data.articles[i].id %></td>
+                <td><%= data.articles[i].member_name %></td>
+                <td><a href="/article/get?articleId=<%= data.articles[i].id %>" ><%= data.articles[i].title %></a></td>
+                <td><%= data.articles[i].board_name %></td>
+            </tr>       
+            <% } %>    
+            </tbody>
+        </table>
+    </div>
+
+
+    <script>
+            function add() {
+                if(confirm("Add Member?")) {                            
+                    var fo = document.fo;
+                    fo.action = "/member/add";
+                    fo.method = "post";
+                    fo.submit();
+                }
+            };            
+    </script>
+  </body>
+</html>

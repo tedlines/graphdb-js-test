@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <% include ./header.ejs %>
+  </head>
+  <body>
+    <% include ./nav.ejs %>
+    <div class="col-md-12">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th>Board ID</th>
+                <th>Name</th>
+                <th>Allow to Company</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% for(var i=0; i < data.boards.length; i++) { %>
+            <tr>
+                <td><%= i %></td>
+                <td><%= data.boards[i].id %></td>
+                <td><a href="/article/list?boardId=<%= data.boards[i].id %>" ><%= data.boards[i].name %></a></td>
+                <td><%= data.boards[i].company_name %></td>
+            </tr>       
+            <% } %>    
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-6">
+        <form role="form" name="fo" id="fo">
+            <div class="form-group col-lg-6">
+                <label for="boardId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Board ID</label>
+                <div class="notice-padding">
+                    <input type="text" name="boardId" id="boardId" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                <label for="name"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Name</label>
+                <div class="notice-padding"> 
+                    <input type="text" name="name" id="name" class="form-control" value="">
+                </div>
+            </div>
+            <div class="form-group col-lg-6">
+                    <label for="companyId"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span> Allow to Company ID (Edge)</label>
+                    <div class="notice-padding">
+                        <select name="companyId" class="form-control">
+                            <% for(var i=0; i < data.Companies.length; i++) { %>
+                            <option value="<%= data.Companies[i].id %>"><%= data.Companies[i].name %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>
+            <div class="form-group col-lg-12" id="btn_add_group">
+                <a href="#" onclick="add()" id="btn_add" class="btn btn-primary">Add</a>
+            </div>
+        </form>
+    </div>
+
+
+    <script>
+            function add() {
+                if(confirm("Add Board?")) {                            
+                    var fo = document.fo;
+                    fo.action = "/board/add";
+                    fo.method = "post";
+                    fo.submit();
+                }
+            };            
+    </script>
+  </body>
+</html>
